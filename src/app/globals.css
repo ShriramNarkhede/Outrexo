@@ -1,26 +1,67 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: #090504;
+  --color-surface: #13131F;
+  --color-surfaceHighlight: #1F1F2E;
+  --color-primary: #664FC7;
+  --color-primaryGlow: #8B7FD9;
+  --color-secondary: #00f2ff;
+  --color-text-main: #ECE9E8;
+  --color-text-muted: #9CA3AF;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --font-inter: var(--font-inter);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: var(--color-text-main);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #090504 100%);
+  background-attachment: fixed;
+  color: var(--color-text-main);
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply border-primary/50 scale-[1.02];
+    box-shadow: inset 0 0 20px rgba(102, 79, 199, 0.1);
+  }
+
+  .btn-neon {
+    @apply bg-[#664FC7] text-white px-6 py-3 rounded-lg font-bold transition-all duration-300;
+    box-shadow: 0 4px 15px rgba(102, 79, 199, 0.4);
+  }
+
+  .btn-neon:hover {
+    @apply transform -translate-y-0.5 bg-[#755edb];
+    box-shadow: 0 0 25px rgba(102, 79, 199, 0.6);
+  }
+
+  .input-field {
+    @apply w-full bg-white/5 border border-white/10 text-white rounded-lg p-4 focus:ring-2 focus:ring-primary focus:outline-none transition-all placeholder-gray-500;
+  }
+
+  .sidebar-link-active {
+    @apply bg-white/5 text-white relative overflow-hidden;
+  }
+
+  .sidebar-link-active::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 bg-primary rounded-r-full;
+    box-shadow: 0 0 10px rgba(102, 79, 199, 0.8);
+  }
 }
