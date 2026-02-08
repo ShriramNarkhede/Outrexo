@@ -1,39 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Outrexo
+
+Outrexo is a modern, high-performance email campaign management platform designed for efficiency and ease of use. It features a sleek "Dark SaaS" UI, real-time analytics, and robust campaign orchestration capabilities.
+
+## Features
+
+- **Campaign Management**: Create, schedule, and track email campaigns.
+- **Template System**: Reusable email templates with rich text support.
+- **Real-time Analytics**: Track sending progress, success rates, and failures live.
+- **Modern UI**: Built with a futuristic dark theme using Tailwind CSS 4 and Framer Motion.
+- **Secure Authentication**: integrated with Google OAuth via NextAuth.js.
+
+## Tech Stack
+
+- **Frontend**: [Next.js 16](https://nextjs.org/) (App Router), [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)
+- **Backend**: Next.js API Routes, Server Actions
+- **Database**: [PostgreSQL](https://www.postgresql.org/), [Prisma ORM](https://www.prisma.io/)
+- **Authentication**: [Auth.js (NextAuth v5)](https://authjs.dev/)
+- **Email Service**: Google Gmail API
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to set up the project locally.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (v18 or higher)
+- PostgreSQL database
+- Google Cloud Console project (for OAuth and Gmail API)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Clone the repository:**
 
-## Learn More
+    ```bash
+    git clone https://github.com/ShriramNarkhede/Outrexo.git
+    cd Outrexo
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    npm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Environment Configuration:**
 
-## Deploy on Vercel
+    Create a `.env` file in the root directory and add the following variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```env
+    # Database Connection
+    DATABASE_URL="postgresql://user:password@localhost:5432/outrexo?schema=public"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    # NextAuth / Auth.js
+    AUTH_SECRET="your-generated-secret" # Run `npx auth secret` to generate
+    AUTH_URL="http://localhost:3000" # Optional in Vercel, required locally often
 
+    # Google OAuth & Gmail API
+    GOOGLE_CLIENT_ID="your-google-client-id"
+    GOOGLE_CLIENT_SECRET="your-google-client-secret"
+    ```
 
- npx prisma studio
+4.  **Database Setup:**
+
+    Push the Prisma schema to your database:
+
+    ```bash
+    npx prisma generate
+    npx prisma db push
+    ```
+
+5.  **Run the Development Server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Project Structure
+
+- `src/app`: App Router pages and API routes.
+  - `(auth)`: Login and authentication pages.
+  - `(dashboard)`: Protected dashboard routes (Campaigns, Templates, Settings).
+  - `api`: Backend API endpoints.
+- `src/components`: Reusable UI components.
+  - `ui`: Base UI elements (buttons, inputs, etc.).
+  - `dashboard`: Dashboard-specific widgets.
+  - `campaign`: Campaign creation and monitoring components.
+- `src/lib`: Utility functions and centralized configuration (Prisma client, utils).
+- `prisma`: Database schema and migrations.
+
+## Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the application for production.
+- `npm start`: Runs the built application.
+- `npm run lint`: Runs ESLint.
+
+## License
+
+[MIT](LICENSE)
