@@ -4,6 +4,7 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { User, Mail, ShieldCheck, Globe, Calendar } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { SmtpForm } from "@/components/SmtpForm";
 
 export default async function SettingsPage() {
     const session = await auth();
@@ -73,17 +74,21 @@ export default async function SettingsPage() {
                                 <ShieldCheck size={20} className={account ? "text-green-500" : "text-text-muted"} />
                             </div>
 
-                            <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-border opacity-50">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-purple-500/20 rounded text-purple-400">
-                                        <Mail size={18} />
-                                    </div>
-                                    <div>
-                                        <p className="font-medium">SMTP Relay (Coming Soon)</p>
-                                        <p className="text-xs text-text-muted">Alternative email delivery method</p>
+                            {/* SMTP Configuration */}
+                            <div className="p-4 bg-white/5 rounded-lg border border-border space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 bg-purple-500/20 rounded text-purple-400">
+                                            <Mail size={18} />
+                                        </div>
+                                        <div>
+                                            <p className="font-medium">Manual SMTP Configuration</p>
+                                            <p className="text-xs text-text-muted">Fallback method when Google API limit is reached</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <ShieldCheck size={20} className="text-text-muted" />
+
+                                <SmtpForm />
                             </div>
                         </div>
                     </GlassPanel>
@@ -105,7 +110,7 @@ export default async function SettingsPage() {
                         </div>
                     </GlassPanel>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

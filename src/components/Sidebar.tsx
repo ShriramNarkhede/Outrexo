@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Send, FileText, Settings, Menu, X, LogOut } from "lucide-react";
+import { LayoutDashboard, Send, FileText, Settings, Menu, X, LogOut, FileUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -12,6 +12,7 @@ const navItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
     { name: "Campaigns", href: "/campaigns", icon: Send },
     { name: "Templates", href: "/templates", icon: FileText },
+    { name: "Converter", href: "/converter", icon: FileUp },
     { name: "Settings", href: "/settings", icon: Settings },
 ];
 

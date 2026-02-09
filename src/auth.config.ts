@@ -1,5 +1,5 @@
-import type { NextAuthConfig } from "next-auth"
-import Google from "next-auth/providers/google"
+import type { NextAuthConfig } from "next-auth";
+import Google from "next-auth/providers/google";
 
 // Notice this is only an object, not a full Auth instance
 export const authConfig = {
@@ -29,7 +29,7 @@ export const authConfig = {
                 if (isLoggedIn) return true;
                 return false; // Redirect unauthenticated users to login page
             } else if (isLoggedIn) {
-                if (nextUrl.pathname === '/login') {
+                if (nextUrl.pathname === '/login' || nextUrl.pathname === '/signup') {
                     return Response.redirect(new URL('/', nextUrl));
                 }
                 return true;

@@ -12,6 +12,16 @@ model User {
   email         String     @unique
   image         String?
   emailVerified DateTime?
+  password      String?
+  
+  // SMTP Configuration
+  smtpHost      String?
+  smtpPort      Int?
+  smtpUser      String?
+  smtpSecure    Boolean?   @default(true)
+  smtpPassword  String?    // Encrypted
+  smtpIV        String?    // Initialization Vector for encryption
+
   accounts      Account[]
   campaigns     Campaign[]
   templates     Template[]

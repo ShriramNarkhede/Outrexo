@@ -4,11 +4,11 @@ import { useState } from "react";
 import { googleSignIn } from "@/app/actions/auth-actions";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export function LoginForm() {
+export function SignupForm() {
     const [showPassword, setShowPassword] = useState(false);
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -21,17 +21,17 @@ export function LoginForm() {
         setError("");
 
         try {
-            const result = await signIn("credentials", {
-                email,
-                password,
-                redirect: false,
+            const res = await fetch("/api/auth/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, password }),
             });
 
-            if (result?.error) {
-                setError("Invalid email or password");
+            if (res.ok) {
+                router.push("/login?message=Account created! Please log in.");
             } else {
-                router.push("/dashboard");
-                router.refresh();
+                const data = await res.json();
+                setError(data.error || "Signup failed");
             }
         } catch (err) {
             setError("Something went wrong");
@@ -43,11 +43,11 @@ export function LoginForm() {
     return (
         <div className="w-full max-w-md space-y-8">
             <div className="space-y-2">
-                <h1 className="text-3xl font-bold text-white">Welcome back</h1>
+                <h1 className="text-3xl font-bold text-white">Create an account</h1>
                 <p className="text-gray-400">
-                    Don&apos;t have an account?{" "}
-                    <Link href="/signup" className="text-purple-400 hover:text-purple-300 underline transition-colors">
-                        Sign up
+                    Already have an account?{" "}
+                    <Link href="/login" className="text-purple-400 hover:text-purple-300 underline transition-colors">
+                        Log in
                     </Link>
                 </p>
             </div>
@@ -58,6 +58,17 @@ export function LoginForm() {
                         {error}
                     </div>
                 )}
+
+                <div className="space-y-2">
+                    <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                    />
+                </div>
 
                 <div className="space-y-2">
                     <input
@@ -88,10 +99,19 @@ export function LoginForm() {
                     </button>
                 </div>
 
-                <div className="flex items-center justify-end">
-                    <Link href="/forgot-password" className="text-sm text-gray-400 hover:text-white transition-colors">
-                        Forgot password?
-                    </Link>
+                <div className="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                        className="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 focus:ring-purple-500"
+                    />
+                    <label htmlFor="terms" className="text-sm text-gray-400">
+                        I agree to the{" "}
+                        <a href="#" className="text-purple-400 hover:text-purple-300 underline">
+                            terms & conditions
+                        </a>
+                    </label>
                 </div>
 
                 <button
@@ -99,7 +119,7 @@ export function LoginForm() {
                     disabled={loading}
                     className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors shadow-lg shadow-purple-500/20 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign in"}
+                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Create account"}
                 </button>
             </form>
 
@@ -108,12 +128,13 @@ export function LoginForm() {
                     <div className="w-full border-t border-white/10"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-[#1e1e2e] text-gray-500">Or continue with</span>
+                    <span className="px-2 bg-[#1e1e2e] text-gray-500">Or register with</span>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 gap-4">
                 <button
+                    type="button"
                     onClick={() => googleSignIn()}
                     className="flex items-center justify-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-all"
                 >

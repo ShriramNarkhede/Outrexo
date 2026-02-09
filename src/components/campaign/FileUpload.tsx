@@ -3,7 +3,7 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Papa from "papaparse";
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx"; // Removed for dynamic import
 import { useCampaignStore, Contact } from "@/store/campaignStore";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { Upload, FileSpreadsheet, X } from "lucide-react";
@@ -37,8 +37,9 @@ export function FileUpload() {
             });
         } else {
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
                 const data = e.target?.result;
+                const XLSX = await import("xlsx");
                 const workbook = XLSX.read(data, { type: "binary" });
                 const sheetName = workbook.SheetNames[0];
                 const sheet = workbook.Sheets[sheetName];
