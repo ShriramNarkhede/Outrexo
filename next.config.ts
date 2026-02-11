@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: any = {
-
-
-
   images: {
     remotePatterns: [
       {
@@ -16,10 +13,7 @@ const nextConfig: any = {
       },
     ],
   },
-  devIndicators: {
-    buildActivity: false,
-    appIsrStatus: false,
-  },
+  devIndicators: false,
 };
 
 export default nextConfig;

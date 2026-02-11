@@ -72,13 +72,22 @@ export function SendingProgress({ logs, campaignId }: SendingProgressProps) {
                 const log = logs[i];
                 setCurrentLogId(log.id);
 
-                // Random delay
-                const delay = Math.random() * 1000 + 1000; // 1-2s
-                await new Promise(r => setTimeout(r, delay));
-
                 try {
-                    const subject = processString(template.subject, log.recipient);
-                    const htmlBody = processString(template.body, log.recipient);
+                    // Random delay
+                    const delay = Math.random() * 1000 + 1000; // 1-2s
+                    await new Promise(r => setTimeout(r, delay));
+
+                    let subject = "", htmlBody = "";
+                    try {
+                        subject = processString(template.subject, log.recipient);
+                        htmlBody = processString(template.body, log.recipient);
+                    } catch (strErr) {
+                        console.error("Template processing error:", strErr);
+                        // If template processing fails, we can't send.
+                        // We should probably mark as failed and continue.
+                        setFailCount(prev => prev + 1);
+                        continue;
+                    }
 
                     const res = await fetch("/api/email/send", {
                         method: "POST",
@@ -95,11 +104,13 @@ export function SendingProgress({ logs, campaignId }: SendingProgressProps) {
                     if (res.ok) {
                         setSentCount(prev => prev + 1);
                     } else {
+                        console.error(`Failed to send to ${log.recipient}: ${res.status} ${res.statusText}`);
                         setFailCount(prev => prev + 1);
                     }
                 } catch (err) {
+                    // Catch network errors or other unexpected errors
                     setFailCount(prev => prev + 1);
-                    console.error(err);
+                    console.error(`Unexpected error processing ${log.recipient}:`, err);
                 }
 
                 setProgress(((i + 1) / logs.length) * 100);

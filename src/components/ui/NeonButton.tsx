@@ -10,7 +10,7 @@ export function NeonButton({ children, className, variant = "primary", ...props 
     return (
         <button
             className={cn(
-                "btn-neon",
+                "btn-neon min-h-[44px] flex items-center justify-center",
                 variant === "secondary" && "bg-secondary shadow-[0_0_15px_rgba(198,162,78,0.4)] hover:shadow-[0_0_25px_rgba(198,162,78,0.7)]",
                 className
             )}

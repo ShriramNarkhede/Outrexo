@@ -59,3 +59,41 @@ export async function POST(req: Request) {
         }, { status: 400 });
     }
 }
+
+export async function GET(req: Request) {
+    const session = await auth();
+    if (!session?.user?.id) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: session.user.id },
+            select: {
+                smtpHost: true,
+                smtpPort: true,
+                smtpUser: true,
+                smtpPassword: true, // Check existence only
+                smtpIV: true
+            }
+        });
+
+        if (!user || !user.smtpHost) {
+            return NextResponse.json({ configured: false });
+        }
+
+        // Return configuration but MASK the password
+        return NextResponse.json({
+            configured: true,
+            host: user.smtpHost,
+            port: user.smtpPort,
+            user: user.smtpUser,
+            // We don't return the actual password for security, just a placeholder if it exists
+            hasPassword: !!(user.smtpPassword && user.smtpIV)
+        });
+
+    } catch (error: any) {
+        console.error("Fetch SMTP Error:", error);
+        return NextResponse.json({ error: "Failed to fetch settings" }, { status: 500 });
+    }
+}

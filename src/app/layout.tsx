@@ -11,6 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Outrexo | Serverless Email Automation",
   description: "Secure, serverless email automation platform.",
+  icons: {
+    icon: "/outrexo.png",
+  },
 };
 
 import { SnowEffect } from "@/components/ui/SnowEffect";

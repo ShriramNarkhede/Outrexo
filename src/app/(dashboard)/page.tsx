@@ -25,7 +25,7 @@ export default async function DashboardPage() {
 
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 p-2">
           <div>
-            <h1 className="text-4xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
               Welcome back, <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">{session.user.name?.split(" ")[0]}</span>
             </h1>
             <p className="text-slate-400 mt-2 text-lg">

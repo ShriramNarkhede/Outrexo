@@ -24,9 +24,10 @@ export default async function SettingsPage() {
                 <p className="text-text-muted mt-2">Manage your account and connections.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
                 {/* Profile Card */}
-                <GlassPanel className="md:col-span-1 flex flex-col items-center text-center py-10">
+               <GlassPanel className="w-fit mx-auto center flex flex-col items-center text-center py-4">
+
                     <div className="relative w-24 h-24 mb-6">
                         {session.user.image ? (
                             <Image
@@ -45,6 +46,24 @@ export default async function SettingsPage() {
                     </div>
                     <h2 className="text-xl font-bold">{session.user.name}</h2>
                     <p className="text-text-muted text-sm mt-1">{session.user.email}</p>
+
+                     <GlassPanel className="space-y-4 mt-10">
+                        <h3 className="text-lg font-bold flex items-center gap-2">
+                            <Calendar className="text-secondary" size={20} />
+                            Account Details
+                        </h3>
+                        <div className="grid grid-rows-2 gap-4 w-full text-left self-start">
+
+                            <div>
+                                <p className="text-xs text-text-muted uppercase font-bold tracking-wider">User ID</p>
+                                <p className="text-sm font-mono mt-1 truncate">{session.user.id}</p>
+                            </div>
+                            <div>
+                                <p className="text-xs text-text-muted uppercase font-bold tracking-wider">Plan</p>
+                                <p className="text-sm mt-1">Free Tier</p>
+                            </div>
+                        </div>
+                    </GlassPanel>
                 </GlassPanel>
 
                 {/* Connection Status */}
@@ -76,39 +95,12 @@ export default async function SettingsPage() {
 
                             {/* SMTP Configuration */}
                             <div className="p-4 bg-white/5 rounded-lg border border-border space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-purple-500/20 rounded text-purple-400">
-                                            <Mail size={18} />
-                                        </div>
-                                        <div>
-                                            <p className="font-medium">Manual SMTP Configuration</p>
-                                            <p className="text-xs text-text-muted">Fallback method when Google API limit is reached</p>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <SmtpForm />
                             </div>
                         </div>
                     </GlassPanel>
 
-                    <GlassPanel className="space-y-4">
-                        <h3 className="text-lg font-bold flex items-center gap-2">
-                            <Calendar className="text-secondary" size={20} />
-                            Account Details
-                        </h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <p className="text-xs text-text-muted uppercase font-bold tracking-wider">User ID</p>
-                                <p className="text-sm font-mono mt-1 truncate">{session.user.id}</p>
-                            </div>
-                            <div>
-                                <p className="text-xs text-text-muted uppercase font-bold tracking-wider">Plan</p>
-                                <p className="text-sm mt-1">Free Tier / Developer</p>
-                            </div>
-                        </div>
-                    </GlassPanel>
+                   
                 </div>
             </div >
         </div >

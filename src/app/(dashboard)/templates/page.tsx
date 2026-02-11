@@ -2,9 +2,10 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { NeonButton } from "@/components/ui/NeonButton";
-import { Plus, Edit2, Trash2 } from "lucide-react";
+import { Plus, Edit2 } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { DeleteTemplateButton } from "@/components/templates/DeleteTemplateButton";
 
 export default async function TemplatesPage() {
     const session = await auth();
@@ -57,7 +58,7 @@ export default async function TemplatesPage() {
                                         <Edit2 size={16} /> Edit
                                     </button>
                                 </Link>
-                                {/* Delete button would need client component wrapper or server action */}
+                                
                             </div>
                         </GlassPanel>
                     ))

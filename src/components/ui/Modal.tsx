@@ -30,15 +30,18 @@ export function Modal({ isOpen, onClose, title, description, children, footer }:
                     />
 
                     {/* Modal Content */}
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+                    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 pointer-events-none">
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            transition={{ type: "spring", duration: 0.3 }}
+                            initial={{ y: "100%", opacity: 0, scale: 1 }}
+                            animate={{ y: 0, opacity: 1, scale: 1 }}
+                            exit={{ y: "100%", opacity: 0, scale: 1 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
                             className={cn(
                                 "relative w-full max-w-lg glass-panel p-6 shadow-2xl pointer-events-auto",
-                                "border border-white/10 rounded-2xl bg-[#090504]/90"
+                                "border-t border-x border-b-0 sm:border border-white/10",
+                                "rounded-t-2xl rounded-b-none sm:rounded-2xl",
+                                "bg-[#090504]/95 backdrop-blur-xl",
+                                "max-h-[90vh] overflow-y-auto"
                             )}
                         >
                             {/* Header */}

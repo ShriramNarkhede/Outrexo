@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { Modal } from "@/components/ui/Modal";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { NeonButton } from "@/components/ui/NeonButton";
 import {
@@ -15,31 +16,21 @@ import {
     ExternalLink
 } from "lucide-react";
 import Link from "next/link";
+import { Campaign, EmailLog } from "@prisma/client";
 
-interface Log {
-    id: string;
-    recipient: string;
-    status: string;
-    error: string | null;
-    sentAt: string;
-}
+// ... existing imports
 
-interface Campaign {
-    id: string;
-    name: string;
-    status: string;
-    sentCount: number;
-    failCount: number;
-    createdAt: string;
-    logs: Log[];
+interface CampaignWithLogs extends Campaign {
+    logs: EmailLog[];
 }
 
 export default function CampaignDetailPage() {
     const params = useParams();
     const router = useRouter();
-    const [campaign, setCampaign] = useState<Campaign | null>(null);
+    const [campaign, setCampaign] = useState<CampaignWithLogs | null>(null);
     const [loading, setLoading] = useState(true);
     const [deleting, setDeleting] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         const fetchCampaign = async () => {
@@ -58,9 +49,7 @@ export default function CampaignDetailPage() {
         fetchCampaign();
     }, [params.id]);
 
-    const handleDelete = async () => {
-        if (!confirm("Are you sure you want to delete this campaign? This will also delete all associated logs.")) return;
-
+    const confirmDelete = async () => {
         setDeleting(true);
         try {
             const res = await fetch(`/api/campaigns/${params.id}`, {
@@ -73,6 +62,7 @@ export default function CampaignDetailPage() {
             console.error(error);
             alert("Failed to delete campaign");
             setDeleting(false);
+            setShowDeleteModal(false);
         }
     };
 
@@ -119,7 +109,7 @@ export default function CampaignDetailPage() {
                 </div>
 
                 <button
-                    onClick={handleDelete}
+                    onClick={() => setShowDeleteModal(true)}
                     disabled={deleting}
                     className="flex items-center gap-2 px-4 py-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors font-medium"
                 >
@@ -127,6 +117,32 @@ export default function CampaignDetailPage() {
                     Delete Campaign
                 </button>
             </div>
+
+            {/* Delete Confirmation Modal */}
+            <Modal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                title="Delete Campaign"
+                description="Are you sure you want to delete this campaign? This action cannot be undone and all associated logs will be permanently removed."
+                footer={
+                    <div className="flex justify-end gap-3 w-full">
+                        <button
+                            onClick={() => setShowDeleteModal(false)}
+                            className="px-4 py-2 rounded-lg text-text-muted hover:text-white hover:bg-white/5 transition-colors"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={confirmDelete}
+                            disabled={deleting}
+                            className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-colors flex items-center gap-2"
+                        >
+                            {deleting && <Loader2 size={16} className="animate-spin" />}
+                            Delete Permanently
+                        </button>
+                    </div>
+                }
+            />
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

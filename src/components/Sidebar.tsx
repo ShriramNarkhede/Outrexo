@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, Send, FileText, Settings, Menu, X, LogOut, FileUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,13 +18,14 @@ const navItems = [
 
 export function Sidebar() {
     const pathname = usePathname();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-            if (window.innerWidth < 768) setIsOpen(false);
+            setIsMobile(window.innerWidth < 1024); // lg breakpoint
+            if (window.innerWidth < 1024) setIsOpen(false);
             else setIsOpen(true);
         };
 
@@ -33,15 +34,34 @@ export function Sidebar() {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
+    useEffect(() => {
+        navItems.forEach((item) => {
+            router.prefetch(item.href);
+        });
+    }, [router]);
+
     return (
         <>
             {/* Mobile Toggle */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="fixed top-4 left-4 z-50 md:hidden bg-surface p-2 rounded-lg text-text-main border border-border"
-            >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Top Navbar */}
+            <div className="fixed top-0 left-0 right-0 h-16 z-50 flex items-center justify-between px-4 bg-[#090504]/80 backdrop-blur-md border-b border-white/10 lg:hidden">
+                <div className="flex items-center gap-2">
+                    <Image
+                        src="/images/outrexo.png"
+                        alt="Outrexo"
+                        width={32}
+                        height={32}
+                        className="rounded-full"
+                    />
+                    <span className="font-bold text-lg text-white">Outrexo</span>
+                </div>
+                <button
+                    onClick={() => setIsOpen(true)}
+                    className="p-2 text-text-muted hover:text-white transition-colors"
+                >
+                    <Menu size={24} />
+                </button>
+            </div>
 
             {/* Floating Sidebar Container */}
             <AnimatePresence mode="wait">
@@ -52,24 +72,19 @@ export function Sidebar() {
                         exit={{ x: -100, opacity: 0 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         className={cn(
-                            "fixed left-6 top-6 bottom-6 w-64 glass-panel z-40 flex flex-col p-6 hidden md:flex",
-                            // Mobile styles override
-                            "md:flex"
+                            "fixed left-6 top-6 bottom-6 w-64 glass-panel z-40 flex flex-col p-6 hidden lg:flex", // Visible only on LG+
                         )}
                         style={{ height: 'calc(100vh - 48px)' }}
                     >
                         {/* Logo */}
-                        <div className="mb-10 flex items-center gap-3 px-2">
+                        <div className="mb-5 flex items-center justify-center">
                             <Image
-                                src="/images/outrexo.png"
+                                src="/images/OutrexoPhotoroom.png"
                                 alt="Outrexo Logo"
-                                width={48}
-                                height={48}
-                                className="w-12 h-12 rounded-full"
+                                width={128}
+                                height={128}
+                                className="w-28 h-28 rounded-full"
                             />
-                            <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                                Outrexo
-                            </h1>
                         </div>
 
                         {/* Navigation */}
@@ -118,23 +133,33 @@ export function Sidebar() {
             <AnimatePresence>
                 {(isOpen && isMobile) && (
                     <motion.div
-                        initial={{ x: -300 }}
+                        initial={{ x: "-100%" }}
                         animate={{ x: 0 }}
-                        exit={{ x: -300 }}
-                        className="fixed inset-y-0 left-0 w-64 bg-[#090504] border-r border-white/10 z-50 p-6 flex flex-col md:hidden"
+                        exit={{ x: "-100%" }}
+                        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                        className="fixed inset-y-0 left-0 w-80 bg-[#090504] border-r border-white/10 z-[60] p-6 flex flex-col lg:hidden shadow-2xl"
                     >
-                        {/* Logo */}
-                        <div className="mb-10 flex items-center gap-3 px-2">
-                            <Image
-                                src="/images/outrexo.png"
-                                alt="Outrexo Logo"
-                                width={48}
-                                height={48}
-                                className="w-12 h-12 rounded-full"
-                            />
-                            <h1 className="text-2xl font-bold text-white">Outrexo</h1>
+                        {/* Mobile Header */}
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-3">
+                                <Image
+                                    src="/images/outrexo.png"
+                                    alt="Outrexo Logo"
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full"
+                                />
+                                <h1 className="text-xl font-bold text-white">Outrexo</h1>
+                            </div>
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="p-2 text-text-muted hover:text-white"
+                            >
+                                <X size={24} />
+                            </button>
                         </div>
-                        {/* Nav Items (Duplicate for mobile simplify) */}
+
+                        {/* Nav Items */}
                         <nav className="flex-1 space-y-2">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href;
@@ -146,7 +171,7 @@ export function Sidebar() {
                                         onClick={() => setIsOpen(false)}
                                         className={cn(
                                             "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-                                            isActive ? "bg-primary/20 text-white" : "text-gray-400"
+                                            isActive ? "bg-primary/20 text-white" : "text-text-muted hover:text-white"
                                         )}
                                     >
                                         <Icon size={20} />
@@ -155,10 +180,20 @@ export function Sidebar() {
                                 )
                             })}
                         </nav>
+
+                        {/* Footer / User Profile */}
+                        <div className="mt-auto border-t border-white/10 pt-6">
+                            <Link
+                                href="/api/auth/signout"
+                                className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                            >
+                                <LogOut size={20} />
+                                <span className="font-medium">Sign Out</span>
+                            </Link>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
         </>
     );
 }
-
