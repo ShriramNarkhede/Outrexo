@@ -7,8 +7,10 @@ Outrexo is a modern, high-performance email campaign management platform designe
 - **Campaign Management**: Create, schedule, and track email campaigns.
 - **Template System**: Reusable email templates with rich text support.
 - **Real-time Analytics**: Track sending progress, success rates, and failures live.
+- **AI Template Generator**: Integrated with **DeepSeek R1** and **Gemini 2.0 Flash** via OpenRouter for auto-drafting email content.
+- **Responsive Design**: Fully optimized for Mobile, Tablet, and Desktop with adaptive grids, drawer navigation, and stacked layouts.
 - **Modern UI**: Built with a futuristic dark theme using Tailwind CSS 4 and Framer Motion.
-- **Secure Authentication**: integrated with Google OAuth via NextAuth.js.
+- **Secure Authentication**: Integrated with Google OAuth via NextAuth.js.
 
 ## Tech Stack
 
@@ -58,6 +60,9 @@ Follow these instructions to set up the project locally.
     # Google OAuth & Gmail API
     GOOGLE_CLIENT_ID="your-google-client-id"
     GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+    # AI Integration (OpenRouter)
+    OPENROUTER_API_KEY="your-openrouter-key"
     ```
 
 4.  **Database Setup:**
