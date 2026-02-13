@@ -2,6 +2,10 @@
 
 Outrexo is a modern, high-performance email campaign management platform designed for efficiency and ease of use. It features a sleek "Dark SaaS" UI, real-time analytics, and robust campaign orchestration capabilities.
 
+## Live Demo
+
+Visit the live web app at `https://outrexo.vercel.app/`.
+
 ## Features
 
 - **Campaign Management**: Create, schedule, and track email campaigns.
@@ -101,6 +105,14 @@ Follow these instructions to set up the project locally.
 - `npm run build`: Builds the application for production.
 - `npm start`: Runs the built application.
 - `npm run lint`: Runs ESLint.
+
+## Screenshots
+
+![Screenshot 0](SS/0.png)
+![Screenshot 1](SS/1.png)
+![Screenshot 2](SS/2.png)
+![Screenshot 3](SS/3.png)
+![Screenshot 4](SS/4.png)
 
 ## License
 
