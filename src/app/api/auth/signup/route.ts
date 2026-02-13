@@ -37,6 +37,7 @@ export async function POST(req: Request) {
         return NextResponse.json(userWithoutPassword);
     } catch (error: any) {
         console.error("Signup error:", error);
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : "Using unknown error";
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
