@@ -142,7 +142,7 @@ export function TemplateForm({ initialData, isEditing = false }: TemplateFormPro
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl mx-auto">
+        <form onSubmit={handleSubmit} className="space-y-8 w-full max-w-6xl xl:max-w-7xl mx-auto">
             <div className="flex flex-col lg:flex-row gap-6">
                 {/* Editor Column */}
                 <div className={cn("flex-1 space-y-6", viewMode === "preview" ? "hidden lg:block" : "block")}>

@@ -17,10 +17,16 @@ export const authConfig = {
             },
         }),
     ],
+    pages: {
+        signIn: '/login',
+        signOut: '/signout',
+        error: '/error',
+    },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnDashboard = nextUrl.pathname.startsWith('/dashboard') ||
+            const isOnDashboard = nextUrl.pathname === '/' ||
+                nextUrl.pathname.startsWith('/dashboard') ||
                 nextUrl.pathname.startsWith('/campaigns') ||
                 nextUrl.pathname.startsWith('/templates') ||
                 nextUrl.pathname.startsWith('/settings');

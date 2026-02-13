@@ -47,11 +47,11 @@ export function Sidebar() {
             <div className="fixed top-0 left-0 right-0 h-16 z-50 flex items-center justify-between px-4 bg-[#090504]/80 backdrop-blur-md border-b border-white/10 lg:hidden">
                 <div className="flex items-center gap-2">
                     <Image
-                        src="/images/outrexo.png"
+                        src="/images/OutrexoP.png"
                         alt="Outrexo"
                         width={32}
                         height={32}
-                        className="rounded-full"
+                        className="object-contain"
                     />
                     <span className="font-bold text-lg text-white">Outrexo</span>
                 </div>
@@ -79,11 +79,11 @@ export function Sidebar() {
                         {/* Logo */}
                         <div className="mb-5 flex items-center justify-center">
                             <Image
-                                src="/images/OutrexoPhotoroom.png"
+                                src="/images/OutrexoP.png"
                                 alt="Outrexo Logo"
                                 width={128}
                                 height={128}
-                                className="w-28 h-28 rounded-full"
+                                className="w-28 h-28 object-contain"
                             />
                         </div>
 
@@ -118,7 +118,7 @@ export function Sidebar() {
                         {/* Footer / User Profile */}
                         <div className="mt-auto border-t border-white/10 pt-6">
                             <Link
-                                href="/api/auth/signout"
+                                href="/signout"
                                 className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors"
                             >
                                 <LogOut size={20} />
@@ -137,7 +137,7 @@ export function Sidebar() {
                         animate={{ x: 0 }}
                         exit={{ x: "-100%" }}
                         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                        className="fixed inset-y-0 left-0 w-80 bg-[#090504] border-r border-white/10 z-[60] p-6 flex flex-col lg:hidden shadow-2xl"
+                        className="fixed inset-y-0 left-0 w-80 bg-[#090504]/90 backdrop-blur-xl border-r border-white/10 z-[60] p-6 flex flex-col lg:hidden shadow-2xl"
                     >
                         {/* Mobile Header */}
                         <div className="flex items-center justify-between mb-8">
@@ -147,7 +147,7 @@ export function Sidebar() {
                                     alt="Outrexo Logo"
                                     width={40}
                                     height={40}
-                                    className="rounded-full"
+                                    className="object-contain"
                                 />
                                 <h1 className="text-xl font-bold text-white">Outrexo</h1>
                             </div>
@@ -184,7 +184,7 @@ export function Sidebar() {
                         {/* Footer / User Profile */}
                         <div className="mt-auto border-t border-white/10 pt-6">
                             <Link
-                                href="/api/auth/signout"
+                                href="/signout"
                                 className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors"
                             >
                                 <LogOut size={20} />

@@ -87,7 +87,6 @@ export default async function SettingsPage() {
                                     </div>
                                     <div>
                                         <p className="font-medium">Google OAuth 2.0</p>
-                                        <p className="text-xs text-text-muted">Required for sending emails via Gmail API</p>
                                     </div>
                                 </div>
                                 <ShieldCheck size={20} className={account ? "text-green-500" : "text-text-muted"} />

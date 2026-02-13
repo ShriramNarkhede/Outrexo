@@ -144,21 +144,7 @@ export default function NewCampaignPage() {
             </div>
 
             {step < 4 && (
-                <div className="fixed bottom-6 right-6 z-50">
-                    {step < 3 && (
-                        <NeonButton
-                            onClick={nextStep}
-                            className="px-8 py-4 text-lg shadow-2xl shadow-primary/40 hover:scale-105 transition-transform"
-                        >
-                            Next Step
-                        </NeonButton>
-                    )}
-                </div>
-            )}
-
-            {/* Navigation (Back button only) */}
-            {step < 4 && (
-                <div className="flex justify-start mt-8 border-t border-border pt-6">
+                <div className="flex justify-between items-center mt-8 border-t border-border pt-6">
                     <button
                         onClick={prevStep}
                         disabled={step === 1}
@@ -167,6 +153,15 @@ export default function NewCampaignPage() {
                     >
                         Back
                     </button>
+
+                    {step < 3 && (
+                        <NeonButton
+                            onClick={nextStep}
+                            className="px-8 py-4 text-lg shadow-lg shadow-primary/20 hover:scale-105 transition-transform"
+                        >
+                            Next Step
+                        </NeonButton>
+                    )}
                 </div>
             )}
         </div>

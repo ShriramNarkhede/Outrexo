@@ -128,7 +128,7 @@ export function SignupForm() {
                     <div className="w-full border-t border-white/10"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-[#1e1e2e] text-gray-500">Or register with</span>
+                    <span className="px-2 bg-transparent text-gray-400">Or register with</span>
                 </div>
             </div>
 

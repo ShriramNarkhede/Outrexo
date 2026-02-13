@@ -108,7 +108,7 @@ export function SmtpForm() {
                     </div>
                     <div>
                         <p className="font-medium">Manual SMTP Configuration</p>
-                        <p className="text-xs text-text-muted">Fallback method when Google API limit is reached</p>
+                        
                     </div>
                 </div>
 

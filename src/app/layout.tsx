@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Outrexo | Serverless Email Automation",
+  title: "Outrexo",
   description: "Secure, serverless email automation platform.",
   icons: {
     icon: "/outrexo.png",
