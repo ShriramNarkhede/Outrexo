@@ -1,10 +1,11 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { GlassPanel } from "@/components/ui/GlassPanel";
-import { User, Mail, ShieldCheck, Globe, Calendar } from "lucide-react";
+import { User, ShieldCheck, Globe, Calendar, MessageCircleQuestionMark } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { SmtpForm } from "@/components/SmtpForm";
+import Link from "next/link";
 
 export default async function SettingsPage() {
     const session = await auth();
@@ -26,7 +27,7 @@ export default async function SettingsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
                 {/* Profile Card */}
-               <GlassPanel className="w-fit mx-auto center flex flex-col items-center text-center py-4">
+                <GlassPanel className="w-fit mx-auto center flex flex-col items-center text-center py-4">
 
                     <div className="relative w-24 h-24 mb-6">
                         {session.user.image ? (
@@ -47,7 +48,7 @@ export default async function SettingsPage() {
                     <h2 className="text-xl font-bold">{session.user.name}</h2>
                     <p className="text-text-muted text-sm mt-1">{session.user.email}</p>
 
-                     <GlassPanel className="space-y-4 mt-10">
+                    <GlassPanel className="space-y-4 mt-10">
                         <h3 className="text-lg font-bold flex items-center gap-2">
                             <Calendar className="text-secondary" size={20} />
                             Account Details
@@ -63,7 +64,20 @@ export default async function SettingsPage() {
                                 <p className="text-sm mt-1">Free Tier</p>
                             </div>
                         </div>
+
+
+
                     </GlassPanel>
+
+
+
+                    <Link className="mt-4 w-full sm:w-auto px-8 py-3 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 font-bold hover:bg-indigo-600/30 transition-all flex items-center justify-center gap-2"
+                        href="/guide">
+                        Open Setup Guide
+                    </Link>
+
+
+
                 </GlassPanel>
 
                 {/* Connection Status */}
@@ -95,13 +109,15 @@ export default async function SettingsPage() {
                             {/* SMTP Configuration */}
                             <div className="p-4 bg-white/5 rounded-lg border border-border space-y-4">
                                 <SmtpForm />
+
                             </div>
                         </div>
                     </GlassPanel>
 
-                   
+
                 </div>
             </div >
+
         </div >
     );
 }

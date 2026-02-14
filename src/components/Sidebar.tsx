@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Send, FileText, Settings, Menu, X, LogOut, FileUp } from "lucide-react";
+import { LayoutDashboard, Send, FileText, Settings, Menu, X, LogOut, FileUp, Info} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -14,6 +14,7 @@ const navItems = [
     { name: "Templates", href: "/templates", icon: FileText },
     { name: "Converter", href: "/converter", icon: FileUp },
     { name: "Settings", href: "/settings", icon: Settings },
+    { name: "About me", href: "/about", icon: Info },
 ];
 
 export function Sidebar() {
@@ -47,19 +48,21 @@ export function Sidebar() {
             <div className="fixed top-0 left-0 right-0 h-16 z-50 flex items-center justify-between px-4 bg-[#090504]/80 backdrop-blur-md border-b border-white/10 lg:hidden">
                 <div className="flex items-center gap-2">
                     <Image
-                        src="/images/OutrexoP.png"
+                        src="/images/Outrexo1.png"
                         alt="Outrexo"
                         width={32}
-                        height={32}
+                        height={40}
                         className="object-contain"
                     />
-                    <span className="font-bold text-lg text-white">Outrexo</span>
+                    <span className="text-lg font-bold">Outrexo</span>
                 </div>
                 <button
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => setIsOpen(!isOpen)}
                     className="p-2 text-text-muted hover:text-white transition-colors"
                 >
-                    <Menu size={24} />
+                    {/* <Menu size={24} /> */}
+
+                   {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
 
@@ -141,22 +144,16 @@ export function Sidebar() {
                     >
                         {/* Mobile Header */}
                         <div className="flex items-center justify-between mb-8">
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center justify-center ml-4">
                                 <Image
-                                    src="/images/outrexo.png"
+                                    src="/images/Outrexo1.png"
                                     alt="Outrexo Logo"
-                                    width={40}
-                                    height={40}
+                                    width={36}
+                                    height={36}
                                     className="object-contain"
                                 />
-                                <h1 className="text-xl font-bold text-white">Outrexo</h1>
-                            </div>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="p-2 text-text-muted hover:text-white"
-                            >
-                                <X size={24} />
-                            </button>
+                                <span className="text-xl font-bold ml-2">Outrexo</span>
+                                </div>
                         </div>
 
                         {/* Nav Items */}

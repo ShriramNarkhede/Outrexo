@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Outrexo",
   description: "Secure, serverless email automation platform.",
   icons: {
-    icon: "/outrexo.png",
+    icon: "/images/Outrexo1.png",
   },
 };
 
@@ -26,8 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased`}
-      >
+        className={`${inter.variable} antialiased`}>
         <SnowEffect />
         {children}
       </body>
