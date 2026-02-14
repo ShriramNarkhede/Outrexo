@@ -59,12 +59,16 @@ export function CampaignPreview({ onLaunch }: CampaignPreviewProps) {
                     <span className="text-xs bg-surfaceHighlight px-2 py-1 rounded text-text-muted">Random sample</span>
                 </div>
                 <div className="bg-white/5 p-6 rounded-lg space-y-4 border border-border">
-                    <div className="grid grid-cols-[80px_1fr] items-center gap-2">
+                    <div className="grid grid-cols-[80px_minmax(0,1fr)] items-center gap-2">
                         <span className="text-text-muted text-sm font-medium">To:</span>
-                        <span className="text-white bg-black/20 px-2 py-1 rounded inline-block w-fit">{previewContact.email}</span>
+                        <span className="text-white bg-black/20 px-2 py-1 rounded inline-block min-w-0 break-all">
+                            {previewContact.email}
+                        </span>
 
                         <span className="text-text-muted text-sm font-medium">Subject:</span>
-                        <span className="text-white font-medium">{processString(template.subject)}</span>
+                        <span className="text-white font-medium min-w-0 break-words">
+                            {processString(template.subject)}
+                        </span>
                     </div>
 
                     <div className="border-t border-white/10 pt-4 mt-4 text-text-main whitespace-pre-wrap font-sans leading-relaxed">

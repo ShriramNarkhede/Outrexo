@@ -54,7 +54,7 @@ export function Sidebar() {
                         height={40}
                         className="object-contain"
                     />
-                    <span className="text-lg font-bold">Outrexo</span>
+                    <span className="text-lg font-bold">OutrexoOO</span>
                 </div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
@@ -152,7 +152,7 @@ export function Sidebar() {
                                     height={36}
                                     className="object-contain"
                                 />
-                                <span className="text-xl font-bold ml-2">Outrexo</span>
+                                <span className="text-xl font-bold ml-2">OutrexoA</span>
                                 </div>
                         </div>
 

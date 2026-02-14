@@ -99,23 +99,28 @@ export default function NewCampaignPage() {
             />
 
             {/* Stepper */}
-            <div className="flex justify-between items-center relative mb-12">
-                <div className="absolute top-1/2 left-0 w-full h-1 bg-surfaceHighlight -z-10" />
-                {steps.map((s) => (
-                    <div key={s.id} className="flex flex-col items-center gap-2 bg-background px-4">
+            <div className="relative mb-12">
+                <div className="absolute top-1/2 left-0 w-full h-1 bg-surfaceHighlight -z-10 hidden lg:block" />
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:flex lg:items-center lg:justify-between">
+                    {steps.map((s) => (
                         <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-all ${step >= s.id
-                                ? "bg-primary border-primary text-white"
-                                : "bg-surface border-border text-text-muted"
-                                }`}
+                            key={s.id}
+                            className="flex flex-col items-center gap-2 bg-background/80 px-3 py-2 rounded-lg text-center lg:bg-transparent lg:px-4 lg:py-0 lg:rounded-none"
                         >
-                            {step > s.id ? <CheckCircle2 size={20} /> : s.id}
+                            <div
+                                className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-all ${step >= s.id
+                                    ? "bg-primary border-primary text-white"
+                                    : "bg-surface border-border text-text-muted"
+                                    }`}
+                            >
+                                {step > s.id ? <CheckCircle2 size={20} /> : s.id}
+                            </div>
+                            <span className={`text-sm ${step >= s.id ? "text-white" : "text-text-muted"}`}>
+                                {s.name}
+                            </span>
                         </div>
-                        <span className={`text-sm ${step >= s.id ? "text-white" : "text-text-muted"}`}>
-                            {s.name}
-                        </span>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
 

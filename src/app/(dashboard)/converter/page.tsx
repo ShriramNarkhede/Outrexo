@@ -44,8 +44,11 @@ export default function ConverterPage() {
 
             if (file.type === "application/pdf") {
                 const pdfjsLib = await import("pdfjs-dist");
-                // Set worker source dynamically
-                pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+                // Use the locally bundled PDF.js worker instead of a CDN.
+                pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+                    "pdfjs-dist/build/pdf.worker.min.mjs",
+                    import.meta.url
+                ).toString();
 
                 const arrayBuffer = await file.arrayBuffer();
                 const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -185,7 +188,7 @@ export default function ConverterPage() {
                         exit={{ opacity: 0, y: -20 }}
                         className="glass-panel p-6 rounded-2xl space-y-6 border border-border"
                     >
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 rounded-lg bg-green-500/10 text-green-400">
                                     <FileSpreadsheet size={24} />
@@ -195,10 +198,10 @@ export default function ConverterPage() {
                                     <p className="text-sm text-text-muted">{result.rowCount} rows extract</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3">
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                                 <button
                                     onClick={handleDownload}
-                                    className="flex items-center gap-2 px-6 py-2.5 bg-primary text-white rounded-xl font-medium hover:bg-primary-hover transition-colors shadow-lg shadow-primary/20"
+                                    className="flex w-full items-center justify-center gap-2 px-6 py-2.5 bg-primary text-white rounded-xl font-medium hover:bg-primary-hover transition-colors shadow-lg shadow-primary/20 sm:w-auto"
                                 >
                                     <Download size={18} />
                                     Download Excel
@@ -230,7 +233,7 @@ export default function ConverterPage() {
                                             router.push("/campaigns/new?from=converter");
                                         }
                                     }}
-                                    className="flex items-center gap-2 px-6 py-2.5 bg-surfaceHighlight text-white rounded-xl font-medium hover:bg-white/10 transition-colors border border-white/10"
+                                    className="flex w-full items-center justify-center gap-2 px-6 py-2.5 bg-surfaceHighlight text-white rounded-xl font-medium hover:bg-white/10 transition-colors border border-white/10 sm:w-auto"
                                 >
                                     Proceed to Campaign
                                 </button>

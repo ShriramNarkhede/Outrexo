@@ -29,7 +29,7 @@ export default async function TemplatesPage() {
                 <Link href="/templates/new">
                     <NeonButton className="flex items-center gap-2">
                         <Plus size={20} />
-                        Create Template
+                        Create
                     </NeonButton>
                 </Link>
             </div>

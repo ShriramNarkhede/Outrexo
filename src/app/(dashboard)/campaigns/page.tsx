@@ -15,8 +15,8 @@ export default function CampaignsPage() {
                 </div>
                 <Link href="/campaigns/new">
                     <NeonButton className="flex items-center gap-2">
-                        <Plus size={20} />
-                        New Campaign
+                        <Plus size={20} fontSize={12}/>
+                        Create
                     </NeonButton>
                 </Link>
             </div>
