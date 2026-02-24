@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Bot, ShieldCheck, UploadCloud, Sparkles, Mail, Zap } from "lucide-react";
+import { Bot, ShieldCheck, UploadCloud, Sparkles, Mail } from "lucide-react";
 
 const features = [
   {
@@ -49,9 +50,16 @@ export default function LandingPage() {
 
       <header className="relative z-10">
         <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-          <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-indigo-300 shadow-inner">
-              <Zap className="h-5 w-5" />
+          <Link href="/" className="flex items-center gap-3 text-lg font-semibold">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 shadow-inner">
+              <Image
+                src="/images/Outrexo1.png"
+                alt="Outrexo"
+                width={28}
+                height={28}
+                className="h-7 w-7 object-contain"
+                priority
+              />
             </span>
             Outrexo
           </Link>
