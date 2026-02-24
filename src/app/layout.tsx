@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SnowEffect } from "@/components/ui/SnowEffect";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,9 +15,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/Outrexo1.png",
   },
+  verification: {
+    google: "1dd2c6fd4557801b", // The 'content' value from your Google meta tag
+  },
 };
-
-import { SnowEffect } from "@/components/ui/SnowEffect";
 
 export default function RootLayout({
   children,
@@ -25,8 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <SnowEffect />
         {children}
       </body>
